@@ -212,11 +212,7 @@ public class Library {
         //vuelve null el atributo patron de libro
         ((Book)authorRef.books.get(bookIndex)).patron=null;
         //remueve de la lista de los libro patron
-        System.out.println(((Patron)people[(int)patron.name.charAt(0)].get(patronIndex)).name);
-        
-        System.out.println(((Patron)people[(int)patron.name.charAt(0)].get(patronIndex)).books);
-        
-//        ((Patron)people[(int)patron.name.charAt(0)].get(patronIndex)).books.remove(cheekedToOutBook);
+        ((Patron)people[(int)patron.name.charAt(0)].get(patronIndex)).books.delete(cheekedToOutBook.book);
     }  
     public void run(){
         while(true){
