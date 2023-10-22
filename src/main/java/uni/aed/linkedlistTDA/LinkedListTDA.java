@@ -13,6 +13,7 @@ public class LinkedListTDA<E> implements ListTDA<E>{
     private Nodo cola;
     private int count;
     
+    
     public LinkedListTDA(){        
         clear();
     }
@@ -178,6 +179,10 @@ public class LinkedListTDA<E> implements ListTDA<E>{
         IteratorTDA it=new Iterador(head);
         while(it.hasNext())
             System.out.println((String)it.next());
+    }
+    
+    public IteratorTDA<E> iterator() {
+    return new Iterador(head); // Suponiendo que Iterador recibe el nodo de inicio
     }
     
 }
