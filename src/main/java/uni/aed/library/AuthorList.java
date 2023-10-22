@@ -10,7 +10,7 @@ import uni.aed.linkedlistTDA.LinkedListTDA;
  *
  * @author omar
  */
-public class AuthorList extends LinkedListTDA{
+public class AuthorList extends LinkedListTDA<Author>{
     public AuthorList(){
         super();
     }

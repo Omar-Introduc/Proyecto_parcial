@@ -6,6 +6,7 @@ package uni.aed.library;
 
 import java.util.Iterator;
 import uni.aed.linkedlistTDA.LinkedListTDA;
+import uni.aed.listTDA.IteratorTDA;
 
 /**
  *
@@ -17,9 +18,12 @@ public class PatronList extends LinkedListTDA{
     }
     public void display(){
         
-        
 //        for(java.util.Iterator it=iterator();it.hasNext();)
 //            ((Patron)it.next()).display();;
+        IteratorTDA iterador = this.iterator();
+        while (iterador.hasNext()) {
+            ((Patron)iterador.next()).display();
+            }
     }
 
 

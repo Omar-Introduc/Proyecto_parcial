@@ -296,20 +296,22 @@ public class JFrLibrary extends javax.swing.JFrame {
             BookList libros=((Author)lista1).books;
                 IteratorTDA iterador2 = libros.iterator();
                 while (iterador2.hasNext()) {
-                    Object elemento2 =iterador2.next();
-                    String titleL=((Book)elemento2).title;
-                    if(((Book)elemento2).patron==null){
+                    Object libro =iterador2.next();
+                    String titleL=((Book)libro).title;
+                    
+                    if(((Book)libro).patron==null){
                         
                         modeloList1.addElement(String.format("%-35s %-20s ",titleL,nameA));
                     }
+                    
                     else{
-                        String nameP=((Book)elemento2).patron.name; 
+                        String nameP=((Book)libro).patron.name; 
                         modeloList1.addElement(String.format("%-35s %-20s %-20s",titleL,nameA,nameP));
                     }                    
 
                     }                       
             }
-        }
+        }        
    
         for(int i=(int)'A';i<=(int)'Z';i++){
         IteratorTDA iterador = listaPatron[i].iterator();
@@ -319,7 +321,6 @@ public class JFrLibrary extends javax.swing.JFrame {
             modeloList2.addElement(patron.name);
             }
         }        
-
     }
     
     public void baseDatos(){
@@ -330,6 +331,12 @@ public class JFrLibrary extends javax.swing.JFrame {
         library.includeBook("Murdoch Iris","The Red and the Green");
         library.includeBook("Murdoch Iris","Sartre");
         library.includeBook("Murdoch Iris","The Bell");
+        
+        library.checkOutBook("Anais", "Fielding Hernry","The History of Tom Jones");
+        library.checkOutBook("Floid", "Fielding Hernry","Pasquin");
+        library.checkOutBook("Jeremy", "Fitzgerald Edward","Select Works");
+        library.checkOutBook("Jeremy", "Fitzgerald Edward","Euphranor");
+        library.checkOutBook("Sofia", "Murdoch Iris","Sartre");
         
         
     }

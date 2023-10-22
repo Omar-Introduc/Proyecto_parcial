@@ -17,6 +17,13 @@ public class LinkedListTDA<E> implements ListTDA<E>{
     public LinkedListTDA(){        
         clear();
     }
+    
+    public E getFirst() {
+    if (head != null) {
+        return (E) head.getData();
+    }
+    return null; // Devuelve null si la lista está vacía
+}
 
     @Override
     public void add(E data) {

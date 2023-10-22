@@ -39,6 +39,9 @@ public class Library {
         }
         return input.substring(0,1).toUpperCase()+input.substring(1);
     }
+    private String getString2(String input){
+        return input.substring(0,1).toUpperCase()+input.substring(1);
+    }
     /**
      * nos muestra los libro que tiene la libreria y las personas que se encuentran
      * usando esta
@@ -73,8 +76,8 @@ public class Library {
         Author newAuthor=new Author();
         int oldAuthor;
         Book newBook=new Book();
-        newAuthor.name=name;
-        newBook.title=title;
+        newAuthor.name=getString2(name);
+        newBook.title=getString2(title);
         //Busca si el autor es ya conocido
         oldAuthor=catalog[(int)
                 newAuthor.name.charAt(0)].indexOf(newAuthor);
@@ -106,12 +109,12 @@ public class Library {
         Book book=new Book();
         //Iniciamos index en -1
         int patronIndex,bookIndex=-1,authorIndex=-1;
-        patron.name=patronN;
+        patron.name=getString2(patronN);
         
         //mientras el autor ingresado no se encuentre repetiremos while caso contrario
         //obtenemos el indes del autor buscado
         while(authorIndex==-1){
-            author.name=authorN;
+            author.name=getString2(authorN);
             //Busca en AuthorList si se encuentra el nombre autor ingresado
             authorIndex=catalog[(int)author.name.charAt(0)].indexOf(author);
             
@@ -123,7 +126,7 @@ public class Library {
         //mientras el libro ingresado no se encuentre repetiremos while caso contrario
         //obtenemos el index del libro buscado        
         while(bookIndex==-1){
-            book.title=titleN;
+            book.title=getString2(titleN);
             //apuntamos al autor con cabecera authorRef, y este nos indica si el 
             //libro buscado se encuentra
             authorRef=((Author)catalog[(int)author.name.charAt(0)].get(authorIndex));
@@ -141,7 +144,7 @@ public class Library {
         bookToCheckOut.book=bookRef;
         //buscamo index patron
         patronIndex=people[(int)
-                patron.name.charAt(0)].indexOf(patron.name);
+                patron.name.charAt(0)].indexOf(patron);
         //caso no encontrarlo asignamos a people[]
         if(patronIndex==-1){
             patron.books.add(bookRef);
@@ -149,7 +152,7 @@ public class Library {
             people[(int)patron.name.charAt(0)].add(patron);
             //atributo patron=null de libro apunta a primer patron ya que esta siendo
             //recientemente aignado siempre va ser el primero
-            bookRef.patron=(Patron)people[(int)patron.name.charAt(0)].get(bookIndex);         
+            bookRef.patron=(Patron)people[(int)patron.name.charAt(0)].getFirst();         
         }
         else{
             patronRef=(Patron)people[(int)patron.name.charAt(0)].get(patronIndex);
@@ -170,7 +173,7 @@ public class Library {
         //mientras el patron ingresado no se encuentre repetiremos while caso contrario
         //obtenemos el index del patron
         while(patronIndex==-1){
-            patron.name=patronN;
+            patron.name=getString2(patronN);
             //Busca en AuthorList si se encuentra el nombre autor ingresado
             patronIndex=people[(int)patron.name.charAt(0)].indexOf(patron);
             
@@ -182,7 +185,7 @@ public class Library {
         //mientras el autor ingresado no se encuentre repetiremos while caso contrario
         //obtenemos el indes del autor buscado
         while(authorIndex==-1){
-            author.name=autorN;
+            author.name=getString2(autorN);
             //Busca en AuthorList si se encuentra el nombre autor ingresado
             authorIndex=catalog[(int)author.name.charAt(0)].indexOf(author);
             
@@ -192,7 +195,7 @@ public class Library {
             }
         }
         while(bookIndex==-1){
-            book.title=titleT;
+            book.title=getString2(titleT);
             //apuntamos al autor con cabecera authorRef, y este nos indica si el 
             //libro buscado se encuentra
             authorRef=((Author)catalog[(int)author.name.charAt(0)].get(authorIndex));
@@ -203,13 +206,17 @@ public class Library {
             }
         }
         //Agregamos al checkOutBook apuntando a authorRef y bookRef
-        CheckedOutBook cheekedToOutBook=new CheckedOutBook();        
+        CheckedOutBook cheekedToOutBook=new CheckedOutBook();  
         cheekedToOutBook.author=authorRef;
         cheekedToOutBook.book=(Book)authorRef.books.get(bookIndex);
         //vuelve null el atributo patron de libro
         ((Book)authorRef.books.get(bookIndex)).patron=null;
         //remueve de la lista de los libro patron
-        ((Patron)people[(int)author.name.charAt(0)].get(patronIndex)).books.delete(cheekedToOutBook);
+        System.out.println(((Patron)people[(int)patron.name.charAt(0)].get(patronIndex)).name);
+        
+        System.out.println(((Patron)people[(int)patron.name.charAt(0)].get(patronIndex)).books);
+        
+//        ((Patron)people[(int)patron.name.charAt(0)].get(patronIndex)).books.remove(cheekedToOutBook);
     }  
     public void run(){
         while(true){
@@ -249,7 +256,27 @@ public class Library {
         this.returnBook(patronN, authorN, title);
     }
     public static void main(String[] args){
-        (new Library()).run();
+//        (new LibraryP()).run();
+        Library library=new Library();
+        library.includeBook("Fielding Hernry","The History of Tom Jones");
+        library.includeBook("Fielding Hernry","Pasquin");
+        library.includeBook("Fitzgerald Edward","Select Works");
+        library.includeBook("Fitzgerald Edward","Euphranor");
+        library.includeBook("Murdoch Iris","The Red and the Green");
+        library.includeBook("Murdoch Iris","Sartre");
+        library.includeBook("Murdoch Iris","The Bell");
+        
+        library.checkOutBook("Anais", "Fielding Hernry","The History of Tom Jones");
+        library.checkOutBook("Floid", "Fielding Hernry","Pasquin");
+        library.checkOutBook("Jeremy", "Fitzgerald Edward","Select Works");
+        library.checkOutBook("Jeremy", "Fitzgerald Edward","Euphranor");
+        library.checkOutBook("Sofia", "Murdoch Iris","Sartre");
+        library.status();
+        library.returnBook("Jeremy", "Fitzgerald Edward", "Select Works");
+        library.returnBook("Sofia", "Murdoch Iris", "Sartre");  
+        library.status();
+        
+        
     }
     
     
